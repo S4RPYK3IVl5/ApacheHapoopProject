@@ -13,7 +13,7 @@ public class Events {
     @CsvBindByName
     private String category;
     @CsvBindByName
-    private String id;
+    private String ip;
 
     public String getName() {
         return name;
@@ -31,20 +31,20 @@ public class Events {
         return category;
     }
 
-    public String getId() {
-        return id;
+    public String getIp() {
+        return ip;
     }
 
-    public Events(String name, String price, long date, String category, String id) {
+    public Events(String name, String price, long date, String category, String ip) {
         this.name = name;
         this.price = price;
         this.date = date;
         this.category = category;
-        this.id = id;
+        this.ip = ip;
     }
 
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%s,%s", name, price, date, category, id);
+        return String.format("%s,%s,%s,%s,%s", name, price, category, ip, date);
     }
 }

@@ -15,7 +15,7 @@ public class CSVParser {
     public static void main(String[] args) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, InterruptedException {
 
         Random random = new Random();
-        String[] names = {"Andrey", "Ilya", "Dmitry", "Sergey", "Pavel", "Gena", "Nikita", "Yuri", "Sasha", "Yulia"};
+        String[] names = {"Bread", "Bear", "Cheese", "Wine", "PC", "MacBook", "Mouse", "Food", "Coach", "Table"};
         String[] price = {"100", "200", "300", "400", "500", "600", "700", "800", "900", "1000"};
         String[] category = {"basic", "hard", "medium", "clothes", "food", "things", "tech", "some", "well", "bad"};
         int[] hour = {7, 8, 12, 13, 14, 12, 13, 14, 18, 20};

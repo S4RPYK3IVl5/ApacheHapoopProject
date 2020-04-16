@@ -1,15 +1,14 @@
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.hive.HiveContext
-import org.apache.spark.sql.{Dataset, Encoder, Encoders, SQLContext}
 
-object Main {
+object MainTop {
   def main(args: Array[String]): Unit = {
 
     val sc = new SparkContext
     val sqlContext = new HiveContext(sc)
-    import sqlContext.implicits._
     import org.apache.spark.sql.expressions.Window
     import org.apache.spark.sql.functions
+    import sqlContext.implicits._
 
     val events_df = sqlContext.read
       .format("com.databricks.spark.csv")
@@ -26,7 +25,7 @@ object Main {
       .orderBy($"count".desc)
 //    top_product.show(10)
 
-    // 2task
+    // 2 task
     val window = Window.partitionBy("category").orderBy($"count".desc)
     val top_product = events_df.groupBy("category","name")
       .count()

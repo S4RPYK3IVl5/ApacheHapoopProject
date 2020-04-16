@@ -1,5 +1,7 @@
+import java.util.Properties
+
 import org.apache.spark.SparkContext
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{SQLContext, SaveMode}
 
 
 object MainJoin {
@@ -37,11 +39,21 @@ object MainJoin {
 //    joined_event_with_country.show()
 
     val top_country = joined_event_with_country
-      .selectExpr("cast(price as int) price", "cast(country_name as string) country_name")
-      .groupBy("country_name")
+      .selectExpr("cast(price as int) price", "cast(country_name as string) country")
+      .groupBy("country")
       .sum("price")
-      .orderBy($"sum(price)".desc)
-    top_country.show(10)
+      .withColumnRenamed("sum(price)", "sum_price_per_country")
+      .orderBy($"sum_price_per_country".desc)
+//      top_country.show(10)
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    val prop = new Properties()
+    prop.put("user", "asaprykin")
+    prop.setProperty("driver", "com.mysql.jdbc.Driver")
+    val url = "jdbc:mysql://ip-10-0-0-21.us-west-1.compute.internal:3306/asaprykin"
+
+    top_country.write.mode(SaveMode.Overwrite).jdbc(url, "top_country_mysql", prop)
 
   }
 }
